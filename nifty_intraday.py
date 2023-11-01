@@ -2,18 +2,18 @@ import yfinance as yf
 import pandas as pd
 import datetime
 
-tod = datetime.datetime.now()
-d = datetime.timedelta(days=5)
-start_date = tod-d
-end_date = tod
+# tod = datetime.datetime.now()
+# d = datetime.timedelta(days=5)
+# start_date = tod-d
+# end_date = tod
 
 nifty50_tickers = ['^NSEI']
 
-data = yf.download(nifty50_tickers, start=start_date, end=end_date, interval='15m')
+data = yf.download(tickers=nifty50_tickers, period="5d", interval="15m")
 
 data = data[['Open', 'High', 'Low', 'Close', 'Volume']]
 data.index.name = 'timestamp'
-print(data.index)
+# print(data.index)
 
 filtered_data = data.loc[(data.index.time == pd.to_datetime('09:15:00').time()) | 
 

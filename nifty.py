@@ -2,7 +2,7 @@ import yfinance as yf
 import pandas as pd
 from datetime import date, timedelta
 
-nifty_50_ticker = ["ADANIPORTS", "ASIANPAINT", "AXISBANK", "BAJAJ-AUTO"]
+nifty_50_ticker = ["^NSEI"]
 
 period = "5d"
 interval = "15m"
@@ -11,12 +11,17 @@ interval = "15m"
 nifty50_df = pd.DataFrame()
 nifty50_df = {}
 
-for i in nifty_50_ticker:
-        item = i+".NS"
-        nifty50_df[item] = yf.download(tickers=item, period=period, interval=interval)
+data = yf.download(tickers=nifty_50_ticker, period=period, interval=interval)
 
-print(nifty50_df['ADANIPORTS'+'.NS'].round(2))
-print(nifty50_df['ADANIPORTS'+'.NS'].columns)
+# for i in nifty_50_ticker:
+#         item = i+".NS"
+#         nifty50_df[item] = yf.download(tickers=item, period=period, interval=interval)
+
+# print(data)
+data = data[['Open', 'High', 'Low', 'Close', 'Volume']]
+data = data[['Open', 'Close']]
+data.columns = ['Open', 'Close']
+print(data)
 
 # start_time1 = "09:15:00"
 # end_time1 = "09:30:00"
